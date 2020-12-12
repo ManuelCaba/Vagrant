@@ -1,0 +1,23 @@
+<?php
+
+    namespace class;
+    
+    class Persona
+    {
+        private $edad;
+        
+        public function getEdad()
+        {
+            return $edad;
+        }
+        
+        public function setEdad($edad)
+        {
+            $this->edad = $edad;
+        }
+        
+        public function getAnhoNacimiento()
+        {
+            return date("Y") - $edad;
+        }
+}

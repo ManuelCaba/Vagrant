@@ -1,0 +1,14 @@
+<?php
+    
+
+    include "../class/Persona.php";
+
+    $persona = new Persona();    
+
+    $edad = $_POST['edad'];
+    
+    $anho = date("Y") - $edad;
+    
+    echo $anho;
+
+?>
