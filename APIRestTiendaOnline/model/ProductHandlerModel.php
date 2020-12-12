@@ -1,14 +1,14 @@
 <?php
 
-require_once "ConsLibrosModel.php";
+require_once "ConsProductsModel.php";
 
 
-class LibroHandlerModel
+class ProductHandlerModel
 {
 
-    public static function getLibro($id)
+    public static function getProduct($id)
     {
-        $listaLibros = null;
+        $listaProductos = null;
 
         $db = DatabaseModel::getInstance();
         $db_connection = $db->getConnection();
@@ -19,19 +19,26 @@ class LibroHandlerModel
         //it will be converted into:
         //SELECT * FROM table WHERE cod = 3
         //That's the reason why I decided to create isValid method,
-        //I had problems when the URI was like libro/2jfdsyfsd
+        //I had problems when the URI was like producto/2jfdsyfsd
 
         $valid = self::isValid($id);
 
         //If the $id is valid or the client asks for the collection ($id is null)
         if ($valid === true || $id == null) {
-            $query = "SELECT " . \ConstantesDB\ConsLibrosModel::COD . ","
-                . \ConstantesDB\ConsLibrosModel::TITULO . ","
-                . \ConstantesDB\ConsLibrosModel::PAGS . " FROM " . \ConstantesDB\ConsLibrosModel::TABLE_NAME;
 
+            $query = "SELECT " . \ConstantesDB\ConsProductsModel::ID . ","
+                . \ConstantesDB\ConsProductsModel::NAME . ","
+                . \ConstantesDB\ConsProductsModel::STOCK . ","
+                . \ConstantesDB\ConsProductsModel::DISCOUNT . ","
+                . \ConstantesDB\ConsProductsModel::PRIME . ","
+                . \ConstantesDB\ConsProductsModel::PRICE . ","
+                . \ConstantesDB\ConsProductsModel::SDESCRIPTION . ","
+                . \ConstantesDB\ConsProductsModel::LDESCRIPTION . ","
+                . \ConstantesDB\ConsProductsModel::IMAGE . ","
+                . \ConstantesDB\ConsProductsModel::IDCATEGORY . " FROM " . \ConstantesDB\ConsProductsModel::TABLE_NAME;
 
             if ($id != null) {
-                $query = $query . " WHERE " . \ConstantesDB\ConsLibrosModel::COD . " = ?";
+                $query = $query . " WHERE " . \ConstantesDB\ConsProductsModel::ID . " = ?";
             }
 
             $prep_query = $db_connection->prepare($query);
@@ -47,33 +54,30 @@ class LibroHandlerModel
             }
 
             $prep_query->execute();
-            $listaLibros = array();
+            $listaProductos = array();
 
             //IMPORTANT: IN OUR SERVER, I COULD NOT USE EITHER GET_RESULT OR FETCH_OBJECT,
             // PHP VERSION WAS OK (5.4), AND MYSQLI INSTALLED.
             // PROBABLY THE PROBLEM IS THAT MYSQLND DRIVER IS NEEDED AND WAS NOT AVAILABLE IN THE SERVER:
             // http://stackoverflow.com/questions/10466530/mysqli-prepared-statement-unable-to-get-result
 
-            $prep_query->bind_result($cod, $tit, $pag);
+            $prep_query->bind_result($ID, $name, $stock, $discount, $prime, $price, $sDescription, $lDescription, $image, $idCategory);
             while ($prep_query->fetch()) {
-                if($id == null)
-                {
-                    $cod = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'].'/'.$cod;
-                }
-                $tit = utf8_encode($tit);
-                $libro = new LibroModel($cod, $tit, $pag);
-                $listaLibros[] = $libro;
+                $sDescription = utf8_encode($sDescription);
+                $lDescription = utf8_encode($lDescription);
+                $producto = new ProductoModel($ID, $name, $stock, $discount, $prime, $price, $sDescription, $lDescription, $image, $idCategory);
+                $listaProductos[] = $producto;
             }
 
 //            $result = $prep_query->get_result();
-//            for ($i = 0; $row = $result->fetch_object(LibroModel::class); $i++) {
+//            for ($i = 0; $row = $result->fetch_object(ProductoModel::class); $i++) {
 //
-//                $listaLibros[$i] = $row;
+//                $listaProductos[$i] = $row;
 //            }
         }
         $db_connection->close();
 
-        return $listaLibros;
+        return $listaProductos;
     }
 
     //returns true if $id is a valid id for a book
@@ -87,6 +91,7 @@ class LibroHandlerModel
         if (ctype_digit($id)) {
             $res = true;
         }
+
         return $res;
     }
 
