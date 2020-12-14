@@ -63,8 +63,17 @@ if (isset($_SERVER['HTTP_ACCEPT'])) {
 
 $req = new Request($verb, $url_elements, $query_string, $body, $content_type, $accept);
 
+
 // route the request to the right place
-$controller_name = ucfirst($url_elements[1]) . 'Controller';
+if(isset ($url_elements[3])) //Si existe una petición a una colección hija
+{
+    $controller_name = ucfirst($url_elements[3]) . 'Controller';
+}
+else
+{
+    $controller_name = ucfirst($url_elements[1]) . 'Controller';
+}
+
 if (class_exists($controller_name)) {
     $controller = new $controller_name();
     $action_name = 'manage' . ucfirst(strtolower($verb)) . 'Verb';

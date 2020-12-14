@@ -54,6 +54,7 @@
       <workItem from="1607675264361" duration="3614000" />
       <workItem from="1607782508893" duration="5052000" />
       <workItem from="1607788914391" duration="7103000" />
+      <workItem from="1607863544604" duration="22618000" />
     </task>
     <servers />
   </component>
@@ -73,13 +74,17 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="805" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1607789703321">
+    <state x="805" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1607869932411">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="805" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1607789703321" />
+    <state x="805" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1607869932411" />
     <state x="1060" y="454" key="FileChooserDialogImpl" timestamp="1607785155051">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="1060" y="454" key="FileChooserDialogImpl/0.0.2560.1400@0.0.2560.1400" timestamp="1607785155051" />
+    <state x="1083" y="422" key="NewPhpClassDialog" timestamp="1607870821141">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="1083" y="422" key="NewPhpClassDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1607870821141" />
   </component>
 </project>

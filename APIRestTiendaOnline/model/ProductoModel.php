@@ -36,6 +36,7 @@ class ProductoModel implements JsonSerializable
     private $LongDescription;
     private $Image;
     private $Category;
+    private $Ratings;
 
     //Constructor
     function __construct($ID, $Name, $Stock, $Discount, $Prime, $Price, $ShortDescription, $LongDescription, $Image, $IDCategory) {
@@ -172,6 +173,18 @@ class ProductoModel implements JsonSerializable
         return $this;
     }
 
+    public function getRatings(){
+        return $this->Ratings;
+    }
+
+    public function setRatings($Ratings)
+    {
+        $this->Ratings = $Ratings;
+
+        return $this;
+    }
+
+
 
     /**
      * Specify data which should be serialized to JSON
@@ -195,7 +208,8 @@ class ProductoModel implements JsonSerializable
             'Short_Description' => $this->ShortDescription,
             'Long_Description' => $this->LongDescription,
             'Image' => $this->Image,
-            'Category' => $_SERVER['HTTP_HOST'].'/APIRestTinedaOnline/Cateogory/'.$this->Category
+            'Category' => $_SERVER['HTTP_HOST'].'/APIRestTinedaOnline/Category/'.$this->Category,
+            'Rating' => array_map(function (RatingModel $rating) {return $rating->resourceID();}, $this->Ratings)
         );
     }
 
