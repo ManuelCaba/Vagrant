@@ -93,7 +93,12 @@ class ProductController extends Controller
 
             if(isset($producto))
             {
-                //TODO Insertar Producto
+                $insertado = ProductHandlerModel::insertarProducto($producto);
+
+                if($insertado)
+                {
+                    //TODO Obtenemos por ID
+                }
             }
             else
             {

@@ -85,6 +85,41 @@ class ProductHandlerModel
         return $listaProductos;
     }
 
+    public static function insertarProducto($producto)
+    {
+        $productoInsertado = false;
+
+        $db = DatabaseModel::getInstance();
+        $db_connection = $db->getConnection();
+
+        $query = "INSERT INTO " . \ConstantesDB\ConsProductsModel::TABLE_NAME . "("
+            . \ConstantesDB\ConsProductsModel::NAME . ","
+            . \ConstantesDB\ConsProductsModel::STOCK . ","
+            . \ConstantesDB\ConsProductsModel::DISCOUNT . ","
+            . \ConstantesDB\ConsProductsModel::PRIME . ","
+            . \ConstantesDB\ConsProductsModel::PRICE . ","
+            . \ConstantesDB\ConsProductsModel::SDESCRIPTION . ","
+            . \ConstantesDB\ConsProductsModel::LDESCRIPTION . ","
+            . \ConstantesDB\ConsProductsModel::IMAGE . ","
+            . \ConstantesDB\ConsProductsModel::IDCATEGORY . ") "
+            . "VALUES ('" . $producto -> getName() . "',"
+            . $producto -> getStock() . ","
+            . $producto -> getDiscount() . ","
+            . $producto -> getPrime() . ","
+            . $producto -> getPrice() . ",'"
+            . $producto -> getShortDescription() . "','"
+            . $producto -> getLongDescription() . "','"
+            . $producto -> getImage() . "',"
+            . $producto -> getCategory() . ")";
+
+
+        $prep_query = $db_connection->prepare($query);
+
+        $productoInsertado = $prep_query->execute();
+
+        return $productoInsertado;
+    }
+
     public static function cargarRatings($listaProductos){
 
         for($i = 0; $i < count($listaProductos) ; $i++)
