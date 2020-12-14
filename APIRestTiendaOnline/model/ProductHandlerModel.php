@@ -117,6 +117,11 @@ class ProductHandlerModel
 
         $productoInsertado = $prep_query->execute();
 
+        if($productoInsertado == true)
+        {
+            $producto->setID($db_connection->insert_id);
+        }
+
         return $productoInsertado;
     }
 
